@@ -1,0 +1,45 @@
+{
+    "tlk.workProjectName": "telink_b91_btble_sdk",
+    "tlk.workProjectDir": "c:\\Users\\ansel\\Desktop\\telink_b91m_btble_dual_mode_general_sdk-master\\sdk",
+    "tlk.workTargetName": "_TLKAPP_GENERAL_",
+    "tlk.TOOLCHAIN_PATH": "C:/TelinkIoTStudio/RDS/V5.1.2/toolchains/nds32le-elf-mculib-v5f/",
+    "tlk": {
+        "Telink TLSR9 D25F GCC 10": "C:/TelinkIoTStudio/RDS/V5.1.2/toolchains/nds32le-elf-mculib-v5f/"
+    },
+    "C_Cpp.default.includePath": [
+        "${workspaceFolder}\\sdk",
+        "${workspaceFolder}\\sdk/core",
+        "${workspaceFolder}\\sdk/tlkdrv/B91"
+    ],
+    "C_Cpp.default.defines": [
+        "TLKAPP_GENERAL_ENABLE=1",
+        "MCU_CORE_B91=1",
+        "MCU_CORE_B92=2",
+        "MCU_CORE_TYPE=MCU_CORE_B91",
+        "TLKHW_TYPE_C1T213A83_V5_1=1",
+        "TLKHW_TYPE_C1T213A20_V1_3=2",
+        "TLKHW_TYPE=TLKHW_TYPE_C1T213A83_V5_1"
+    ],
+    "cmake.sourceDirectory": "C:/Users/ansel/Desktop/telink_b91m_btble_dual_mode_general_sdk-master/sdk",
+    "tlk.cmake_generator": "Ninja",
+    "tlk.BdtWorkChip": "B91",
+    "tlk.BdtDownloadBin": "c:\\Users\\ansel\\Desktop\\telink_b91m_btble_dual_mode_general_sdk-master\\sdk\\cmake_builds\\telink_b91_btble_sdk\\Telink_TLSR9_D25F_GCC_10\\_TLKAPP_GENERAL_.bin",
+    "C_Cpp.default.browse.path": [
+        "${workspaceFolder}\\sdk\\app\\tlkapp_general",
+        "${workspaceFolder}\\sdk\\core\\B91",
+        "${workspaceFolder}\\sdk\\core",
+        "${workspaceFolder}\\sdk\\tlkalg",
+        "${workspaceFolder}\\sdk\\tlkapi",
+        "${workspaceFolder}\\sdk\\tlkdev",
+        "${workspaceFolder}\\sdk\\tlkdrv\\B91",
+        "${workspaceFolder}\\sdk\\tlkdrv\\ext",
+        "${workspaceFolder}\\sdk\\tlkdrv\\usr",
+        "${workspaceFolder}\\sdk\\tlklib",
+        "${workspaceFolder}\\sdk\\tlkmdi",
+        "${workspaceFolder}\\sdk\\tlkmmi",
+        "${workspaceFolder}\\sdk\\tlkstk",
+        "${workspaceFolder}\\sdk\\tlksys"
+    ],
+    "tlk.SoC": "B91",
+    "C_Cpp.default.compileCommands": "${workspaceFolder}\\sdk\\compile_commands.json"
+}
