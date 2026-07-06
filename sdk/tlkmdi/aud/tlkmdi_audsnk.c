@@ -270,14 +270,17 @@ bool tlkmdi_audsnk_switch(uint16 handle, uint08 status)
 		tlkdev_codec_open(TLKDEV_CODEC_SUBDEV_SPK, TLKDEV_CODEC_CHANNEL_LEFT, TLKDEV_CODEC_BITDEPTH_16, sampleRate);
 		#endif
 		tlkdev_codec_setSpkOffset(320);
+		tlkdev_codec_muteSpkBuff();
+		tlkdev_codec_zeroSpkBuff(0xFFFF, true);
 		#endif
 		tlkmdi_audio_sendStatusChangeEvt(TLKPRT_COMM_AUDIO_CHN_A2DP_SNK, TLK_STATE_OPENED);
 	}else{
 		bt_ll_schedule_acl_bandwidth_policy_exit();
 		#if (TLK_DEV_CODEC_ENABLE)
-		/* Anti-pop: remplir le buffer HP avec du silence avant de couper le codec */
-		tlkdev_codec_zeroSpkBuff(512, true);
-		delay_ms(5);
+		/* Anti-pop: remplir entièrement le buffer HP avec du silence avant de couper le codec */
+		tlkdev_codec_muteSpkBuff();
+		tlkdev_codec_zeroSpkBuff(0xFFFF, true);
+		delay_ms(10);
 		tlkdev_codec_close();
 		#endif
 		tlkmdi_audio_sendStatusChangeEvt(TLKPRT_COMM_AUDIO_CHN_A2DP_SNK, TLK_STATE_CLOSED);
