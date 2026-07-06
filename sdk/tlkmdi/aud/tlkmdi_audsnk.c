@@ -46,7 +46,7 @@
 #define TLKMDI_AUDSNK_DOUBLE_CHANNEL_ENABLE     1
 
 #define TLKMDI_AUDSNK_VOLUME_STEP    3
-#define TLKMDI_AUDSNK_WAIT_FRAMES    5
+#define TLKMDI_AUDSNK_WAIT_FRAMES    8
 
 #define TLKMDI_AUDSNK_DBG_FLAG       ((TLK_MAJOR_DBGID_MDI_AUDIO << 24) | (TLK_MINOR_DBGID_MDI_AUD_SNK << 16) | TLK_DEBUG_DBG_FLAG_ALL)
 #define TLKMDI_AUDSNK_DBG_SIGN       "[MDI]"
@@ -247,9 +247,6 @@ bool tlkmdi_audsnk_switch(uint16 handle, uint08 status)
     if(status == TLK_STATE_CLOSED && (btp_a2dpsnk_getStatus(handle) == BTP_A2DP_STATUS_STREAM)){
 //        tlkmdi_audsnk_close(handle);
 	}
-	#if (TLK_DEV_CODEC_ENABLE)
-	tlkdev_codec_muteSpkBuff();
-	#endif
 	
 	sTlkMdiSnkCtrl.handle = handle;
 	sTlkMdiSnkCtrl.enable = enable;
@@ -258,6 +255,11 @@ bool tlkmdi_audsnk_switch(uint16 handle, uint08 status)
 	sTlkMdiSnkCtrl.firstInit = true;
 	sTlkMdiSnkCtrl.waitFrame = TLKMDI_AUDSNK_WAIT_FRAMES;
 	tlkapi_qfifo_clear(&spTlkMdiSnkFifo);
+
+	#if (TLK_DEV_CODEC_ENABLE)
+	/* Mute après mise à jour d’état pour éviter un remplissage parasite pendant la transition */
+	tlkdev_codec_muteSpkBuff();
+	#endif
 	if(enable){
 		bt_ll_schedule_acl_bandwidth_policy_enter(sTlkMdiSnkCtrl.handle);
 		sTlkMdiSnkCtrl.sampleRate = sampleRate;
@@ -273,6 +275,9 @@ bool tlkmdi_audsnk_switch(uint16 handle, uint08 status)
 	}else{
 		bt_ll_schedule_acl_bandwidth_policy_exit();
 		#if (TLK_DEV_CODEC_ENABLE)
+		/* Anti-pop: remplir le buffer HP avec du silence avant de couper le codec */
+		tlkdev_codec_zeroSpkBuff(512, true);
+		delay_ms(5);
 		tlkdev_codec_close();
 		#endif
 		tlkmdi_audio_sendStatusChangeEvt(TLKPRT_COMM_AUDIO_CHN_A2DP_SNK, TLK_STATE_CLOSED);
