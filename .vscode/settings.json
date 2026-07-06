@@ -1,7 +1,7 @@
 {
     "tlk.workProjectName": "telink_b91_btble_sdk",
     "tlk.workProjectDir": "c:\\Users\\ansel\\Desktop\\telink_b91m_btble_dual_mode_general_sdk-master\\sdk",
-    "tlk.workTargetName": "_TLKAPP_GENERAL_",
+    "tlk.workTargetName": "all",
     "tlk.TOOLCHAIN_PATH": "C:/TelinkIoTStudio/RDS/V5.1.2/toolchains/nds32le-elf-mculib-v5f/",
     "tlk": {
         "Telink TLSR9 D25F GCC 10": "C:/TelinkIoTStudio/RDS/V5.1.2/toolchains/nds32le-elf-mculib-v5f/"
